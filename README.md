@@ -27,7 +27,7 @@
 | item_text           | text       | null: false                    |
 | category_id         | integer    | null: false                    |
 | condition_id        | integer    | null: false                    |
-| shipping_charges_id | integer    | null: false                    |
+| shipping_charge_id  | integer    | null: false                    |
 | shipping_area_id    | integer    | null: false                    |
 | day_to_ship_id      | integer    | null: false                    |
 | price               | integer    | null: false                    |
@@ -55,7 +55,7 @@
 
 | Column           | Type       | Options                        |
 | ---------------- | ---------- | ------------------------------ |
-| post_code        | integer    | null: false                    |
+| post_code        | string     | null: false                    |
 | shipping_area_id | integer    | null: false                    |
 | city             | string     | null: false                    |
 | address          | string     | null: false                    |
