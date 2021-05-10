@@ -16,7 +16,7 @@ RSpec.describe Item, type: :model do
     context '商品出品ができない時' do
 
       it '商品画像がないと登録ができないこと' do
-        @item.image.key = ''
+        @item.image = nil
         @item.valid?
         expect(@item.errors.full_messages).to include{"Image can't be blank"}
       end
@@ -40,7 +40,7 @@ RSpec.describe Item, type: :model do
       end
 
       it 'category_idが1では登録ができないこと' do
-        @item.category_id = '1'
+        @item.category_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include("Category must be other than 1")
       end
@@ -53,7 +53,7 @@ RSpec.describe Item, type: :model do
       end
 
       it 'condition_idが1では登録ができないこと' do
-        @item.condition_id = '1'
+        @item.condition_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include("Condition must be other than 1")
       end
@@ -65,7 +65,7 @@ RSpec.describe Item, type: :model do
       end
 
       it 'shipping_charge_idが1では登録ができないこと' do
-        @item.shipping_charge_id = '1'
+        @item.shipping_charge_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include("Shipping charge must be other than 1")
       end
@@ -77,7 +77,7 @@ RSpec.describe Item, type: :model do
       end
 
       it 'shipping_area_idが1では登録ができないこと' do
-        @item.shipping_area_id = '1'
+        @item.shipping_area_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include("Shipping area must be other than 1")
       end
@@ -89,24 +89,36 @@ RSpec.describe Item, type: :model do
       end
 
       it 'day_to_ship_idが1では登録ができないこと' do
-        @item.day_to_ship_id = '1'
+        @item.day_to_ship_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include("Day to ship must be other than 1")
       end
-      it 'priceは¥300以上でないと保存ができないこと' do
-        @item.price = '299'
+      it 'priceは¥300以上でないと登録ができないこと' do
+        @item.price = 299
         @item.valid?
         expect(@item.errors.full_messages).to include("Price must be greater than or equal to 300")
       end
 
-      it 'priceは¥10000000以下でないと保存ができないこと' do
-        @item.price = '10000000'
+      it 'priceは¥10000000以下でないと登録ができないこと' do
+        @item.price = 10000000
         @item.valid?
         expect(@item.errors.full_messages).to include("Price must be less than or equal to 9999999")
       end
 
-      it 'priceは半角数字でないと保存ができないこと' do
+      it 'priceは全角数字では登録ができないこと' do
         @item.price = '１０００'
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Price is not a number")
+      end
+
+      it 'priceは半角英数混合では登録できないこと' do
+        @item.price = '1000a'
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Price is not a number")
+      end
+      
+      it 'priceは半角英語だけでは登録できないこと' do
+        @item.price = 'aaaaa'
         @item.valid?
         expect(@item.errors.full_messages).to include("Price is not a number")
       end
