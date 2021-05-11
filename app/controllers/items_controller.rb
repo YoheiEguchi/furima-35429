@@ -14,6 +14,10 @@ before_action :authenticate_user!, only: [:new, :create]
     end
   end
 
+  def index
+    @items = Item.includes(:user).order("created_at DESC")
+  end
+
   private
 
 
