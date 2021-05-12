@@ -34,6 +34,8 @@ before_action :user_checked, only: [:edit, :update]
     end
   end
 
+  private
+  
   def user_checked
     unless current_user.id == @item.user_id
       redirect_to root_path
@@ -43,8 +45,6 @@ before_action :user_checked, only: [:edit, :update]
   def set_item
     @item = Item.find(params[:id])
   end
-
-  private
 
   def item_params
     params.require(:item).permit(:item_name, :item_text, :category_id, :condition_id, :shipping_charge_id, :shipping_area_id, :day_to_ship_id, :price, :image).merge(user_id: current_user.id)
