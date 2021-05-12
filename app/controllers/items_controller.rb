@@ -1,5 +1,6 @@
 class ItemsController < ApplicationController
 before_action :authenticate_user!, only: [:new, :create, :edit]
+before_action :user_checked, only: [:edit, :update]
 
   def new
     @item = Item.new
@@ -24,9 +25,6 @@ before_action :authenticate_user!, only: [:new, :create, :edit]
 
   def edit
     @item = Item.find(params[:id])
-    unless current_user.id == @item.user_id
-      redirect_to root_path
-    end
   end
 
   def update
@@ -35,6 +33,12 @@ before_action :authenticate_user!, only: [:new, :create, :edit]
       redirect_to item_path
     else
       render :edit
+    end
+  end
+
+  def user_checked
+    unless current_user.id == @item.user_id
+      redirect_to root_path
     end
   end
 
