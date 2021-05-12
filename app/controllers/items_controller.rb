@@ -18,6 +18,10 @@ before_action :authenticate_user!, only: [:new, :create]
     @items = Item.includes(:user).order("created_at DESC")
   end
 
+  def show
+    @item = Item.find(params[:id])
+  end
+
   private
 
 
