@@ -5,7 +5,7 @@ class Item < ApplicationRecord
     validates :item_text, length: { maximum: 1000 }
     validates :price, format: { with: /\A[0-9]+\z/}, numericality: { greater_than_or_equal_to: 300, less_than_or_equal_to: 9999999 }
     validates :image
-    with_options numericality: { other_than: 1 } do
+    with_options numericality: { other_than: 1, message: "can't be blank"} do
       validates :category_id
       validates :condition_id
       validates :shipping_charge_id
