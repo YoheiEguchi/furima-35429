@@ -42,7 +42,7 @@ RSpec.describe Item, type: :model do
       it 'category_idが1では登録ができないこと' do
         @item.category_id = 1
         @item.valid?
-        expect(@item.errors.full_messages).to include("Category must be other than 1")
+        expect(@item.errors.full_messages).to include("Category can't be blank")
       end
 
 
@@ -55,7 +55,7 @@ RSpec.describe Item, type: :model do
       it 'condition_idが1では登録ができないこと' do
         @item.condition_id = 1
         @item.valid?
-        expect(@item.errors.full_messages).to include("Condition must be other than 1")
+        expect(@item.errors.full_messages).to include("Condition can't be blank")
       end
 
       it 'shipping_charge_idが空では登録ができないこと' do
@@ -67,7 +67,7 @@ RSpec.describe Item, type: :model do
       it 'shipping_charge_idが1では登録ができないこと' do
         @item.shipping_charge_id = 1
         @item.valid?
-        expect(@item.errors.full_messages).to include("Shipping charge must be other than 1")
+        expect(@item.errors.full_messages).to include("Shipping charge can't be blank")
       end
 
       it 'shipping_area_idが空では登録ができないこと' do
@@ -79,7 +79,7 @@ RSpec.describe Item, type: :model do
       it 'shipping_area_idが1では登録ができないこと' do
         @item.shipping_area_id = 1
         @item.valid?
-        expect(@item.errors.full_messages).to include("Shipping area must be other than 1")
+        expect(@item.errors.full_messages).to include("Shipping area can't be blank")
       end
 
       it 'day_to_ship_idが空では登録ができないこと' do
@@ -91,7 +91,7 @@ RSpec.describe Item, type: :model do
       it 'day_to_ship_idが1では登録ができないこと' do
         @item.day_to_ship_id = 1
         @item.valid?
-        expect(@item.errors.full_messages).to include("Day to ship must be other than 1")
+        expect(@item.errors.full_messages).to include("Day to ship can't be blank")
       end
 
       it 'priceが空では登録ができないこと' do
