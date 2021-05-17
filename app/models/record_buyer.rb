@@ -7,7 +7,7 @@ class RecordBuyer
     validates :post_code,        format: { with: /\A[0-9]{3}-[0-9]{4}\z/, message: "is invalid. Include hyphen(-)"}
     validates :city
     validates :address
-    validates :tel,              format: { with: /\A[0-9]+\z/}, length: { maximum: 11 }
+    validates :tel,              format: { with: /\A[0-9]+\d{11}\z/}
     validates :shipping_area_id, numericality: { other_than: 1, message: "can't be blank"}
     validates :user_id
     validates :item_id
