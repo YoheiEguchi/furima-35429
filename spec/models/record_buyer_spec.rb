@@ -11,7 +11,7 @@ RSpec.describe RecordBuyer, type: :model do
     end
   
     context '内容に問題がない場合' do
-      it '全ての値（post_code, shipping_area_id, city, address, building, tel, user_id, item_id）が正しく入力されていれば保存できること' do
+      it '全ての値（post_code, shipping_area_id, city, address, building, tel, user_id, item_id, token）が正しく入力されていれば保存できること' do
         expect(@record_buyer).to be_valid
       end
 
@@ -105,6 +105,13 @@ RSpec.describe RecordBuyer, type: :model do
         @record_buyer.valid?
         expect(@record_buyer.errors.full_messages).to include("Tel is invalid")
       end
+
+      it 'tokenが空だと保存できないこと' do
+        @record_buyer.token = nil
+        @record_buyer.valid?
+        expect(@record_buyer.errors.full_messages).to include("Token can't be blank")
+      end
+
 
     end
   end

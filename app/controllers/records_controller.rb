@@ -1,6 +1,7 @@
 class RecordsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_item
+  before_action :user_checked
 
   def index
     @record_buyer = RecordBuyer.new
@@ -9,6 +10,7 @@ class RecordsController < ApplicationController
   def create
     @record_buyer = RecordBuyer.new(record_buyer_params)
     if @record_buyer.valid?
+      pay_item
       @record_buyer.save
       redirect_to root_path
     else
@@ -19,11 +21,29 @@ class RecordsController < ApplicationController
   private
 
   def record_buyer_params
-    params.require(:record_buyer).permit(:post_code, :shipping_area_id, :city, :address, :building, :tel).merge(user_id: current_user.id, item_id: params[:item_id])
+    params.require(:record_buyer).permit(:post_code, :shipping_area_id, :city, :address, :building, :tel)
+    .merge(user_id: current_user.id, item_id: params[:item_id], token: params[:token])
   end
 
   def set_item
     @item = Item.find(params[:item_id])
+  end
+
+  def pay_item
+    Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
+    Payjp::Charge.create(
+      amount: @item[:price],
+      card: record_buyer_params[:token],
+      currency: 'jpy'
+    )
+  end
+
+  def user_checked
+    if current_user.id == @item.user_id
+      redirect_to root_path
+      elsif @item.record.present?
+      redirect_to root_path
+    end
   end
 
 end

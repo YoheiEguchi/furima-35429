@@ -10,6 +10,7 @@ FactoryBot.define do
     address {'テスト番地'}
     building {'テスト建物'}
     tel {'09012345678'}
+    token {"tok_abcdefghijk00000000000000000"}
 
   end
 end
