@@ -106,12 +106,29 @@ RSpec.describe RecordBuyer, type: :model do
         expect(@record_buyer.errors.full_messages).to include("Tel is invalid")
       end
 
+      it 'telが12桁以上では保存できないこと' do
+        @record_buyer.tel = '090123456789'
+        @record_buyer.valid?
+        expect(@record_buyer.errors.full_messages).to include("Tel is too long (maximum is 11 characters)")
+      end
+
       it 'tokenが空だと保存できないこと' do
         @record_buyer.token = nil
         @record_buyer.valid?
         expect(@record_buyer.errors.full_messages).to include("Token can't be blank")
       end
 
+      it 'user_idが空だと保存できないこと' do
+        @record_buyer.user_id = nil
+        @record_buyer.valid?
+        expect(@record_buyer.errors.full_messages).to include("User can't be blank")
+      end
+
+      it 'item_idが空だと保存できないこと' do
+        @record_buyer.item_id = nil
+        @record_buyer.valid?
+        expect(@record_buyer.errors.full_messages).to include("Item can't be blank")
+      end
 
     end
   end

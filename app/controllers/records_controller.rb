@@ -39,9 +39,7 @@ class RecordsController < ApplicationController
   end
 
   def user_checked
-    if current_user.id == @item.user_id
-      redirect_to root_path
-      elsif @item.record.present?
+    if current_user.id == @item.user_id || @item.record.present?
       redirect_to root_path
     end
   end
