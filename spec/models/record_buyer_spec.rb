@@ -85,25 +85,25 @@ RSpec.describe RecordBuyer, type: :model do
       it 'telが全角数字では保存できないこと' do
         @record_buyer.tel = '０９０１２３４５６７８'
         @record_buyer.valid?
-        expect(@record_buyer.errors.full_messages).to include("Tel is invalid")
+        expect(@record_buyer.errors.full_messages).to include("Tel is not a number")
       end
 
       it 'telが半角英数混合では保存できないこと' do
         @record_buyer.tel = '0901234567a'
         @record_buyer.valid?
-        expect(@record_buyer.errors.full_messages).to include("Tel is invalid")
+        expect(@record_buyer.errors.full_messages).to include("Tel is not a number")
       end
 
       it 'telが半角英語では保存できないこと' do
         @record_buyer.tel = 'aaaaaaaaaaa'
         @record_buyer.valid?
-        expect(@record_buyer.errors.full_messages).to include("Tel is invalid")
+        expect(@record_buyer.errors.full_messages).to include("Tel is not a number")
       end
 
       it 'telが半角のハイフンを含んだ形式では保存できないこと' do
         @record_buyer.tel = '090-1234-5678'
         @record_buyer.valid?
-        expect(@record_buyer.errors.full_messages).to include("Tel is invalid")
+        expect(@record_buyer.errors.full_messages).to include("Tel is not a number")
       end
 
       it 'telが12桁以上では保存できないこと' do
