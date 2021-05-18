@@ -22,7 +22,7 @@ class RecordsController < ApplicationController
 
   def record_buyer_params
     params.require(:record_buyer).permit(:post_code, :shipping_area_id, :city, :address, :building, :tel)
-    .merge(user_id: current_user.id, item_id: params[:item_id], token: params[:token])
+          .merge(user_id: current_user.id, item_id: params[:item_id], token: params[:token])
   end
 
   def set_item
@@ -30,7 +30,7 @@ class RecordsController < ApplicationController
   end
 
   def pay_item
-    Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
+    Payjp.api_key = ENV['PAYJP_SECRET_KEY']
     Payjp::Charge.create(
       amount: @item[:price],
       card: record_buyer_params[:token],
@@ -39,9 +39,6 @@ class RecordsController < ApplicationController
   end
 
   def user_checked
-    if current_user.id == @item.user_id || @item.record.present?
-      redirect_to root_path
-    end
+    redirect_to root_path if current_user.id == @item.user_id || @item.record.present?
   end
-
 end

@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-
   describe '#create' do
     before do
       @user = FactoryBot.build(:user)
@@ -26,7 +25,6 @@ RSpec.describe User, type: :model do
         expect(@user.errors.full_messages).to include("Nickname can't be blank")
       end
 
-
       it 'emailが空では登録ができないこと' do
         @user.email = ''
         @user.valid?
@@ -43,7 +41,7 @@ RSpec.describe User, type: :model do
       it 'emailに@がなければ登録ができないこと' do
         @user.email = 'aaaaaa'
         @user.valid?
-        expect(@user.errors.full_messages).to include("Email is invalid")
+        expect(@user.errors.full_messages).to include('Email is invalid')
       end
 
       it 'passwordが空では登録ができないこと' do
@@ -59,30 +57,29 @@ RSpec.describe User, type: :model do
         expect(@user.errors.full_messages).to include('Password is too short (minimum is 6 characters)')
       end
 
-      it "passwordは英数字混合でないと登録できない" do
+      it 'passwordは英数字混合でないと登録できない' do
         @user.password = '000000'
         @user.password_confirmation = '000000'
         @user.valid?
-        expect(@user.errors.full_messages).to include("Password is invalid")
+        expect(@user.errors.full_messages).to include('Password is invalid')
       end
 
-      it "passwordは英字のみでは登録できない" do
+      it 'passwordは英字のみでは登録できない' do
         @user.password = 'aaaaaa'
         @user.password_confirmation = 'aaaaaa'
         @user.valid?
-        expect(@user.errors.full_messages).to include("Password is invalid")
-        end
-    
+        expect(@user.errors.full_messages).to include('Password is invalid')
+      end
 
-      it "passwordが存在してもpassword_confirmationが空では登録できない" do
-        @user.password_confirmation = ""
+      it 'passwordが存在してもpassword_confirmationが空では登録できない' do
+        @user.password_confirmation = ''
         @user.valid?
         expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
       end
 
       it 'passwordとpassword_confirmationが不一致では登録できないこと' do
         @user.password = '123456'
-        @user.password_confirmation ='1234567'
+        @user.password_confirmation = '1234567'
         @user.valid?
         expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
       end
@@ -111,32 +108,32 @@ RSpec.describe User, type: :model do
         expect(@user.errors.full_messages).to include("First name kana can't be blank")
       end
 
-        it "last_nameは数字や半角では登録できない" do
-        @user.last_name = "kana1"
+      it 'last_nameは数字や半角では登録できない' do
+        @user.last_name = 'kana1'
         @user.valid?
-        expect(@user.errors.full_messages).to include("Last name is invalid")
+        expect(@user.errors.full_messages).to include('Last name is invalid')
       end
 
-      it "first_nameは数字や半角では登録できない" do
-        @user.first_name = "kana1"
+      it 'first_nameは数字や半角では登録できない' do
+        @user.first_name = 'kana1'
         @user.valid?
-        expect(@user.errors.full_messages).to include("First name is invalid")
+        expect(@user.errors.full_messages).to include('First name is invalid')
       end
 
-      it "last_name_kanaは漢字やひらがなでは登録できない" do
-        @user.last_name_kana = "かな"
+      it 'last_name_kanaは漢字やひらがなでは登録できない' do
+        @user.last_name_kana = 'かな'
         @user.valid?
-        expect(@user.errors.full_messages).to include("Last name kana is invalid")
+        expect(@user.errors.full_messages).to include('Last name kana is invalid')
       end
 
-      it "first_name_kanaは漢字やひらがなでは登録できない" do
-        @user.first_name_kana = "かな"
+      it 'first_name_kanaは漢字やひらがなでは登録できない' do
+        @user.first_name_kana = 'かな'
         @user.valid?
-        expect(@user.errors.full_messages).to include("First name kana is invalid")
+        expect(@user.errors.full_messages).to include('First name kana is invalid')
       end
 
-      it "birthが空では登録ができないこと" do
-        @user.birth = ""
+      it 'birthが空では登録ができないこと' do
+        @user.birth = ''
         @user.valid?
         expect(@user.errors.full_messages).to include("Birth can't be blank")
       end
