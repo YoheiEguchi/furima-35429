@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe Item, type: :model do
-
   describe '#create' do
     before do
       @item = FactoryBot.build(:item)
@@ -14,11 +13,10 @@ RSpec.describe Item, type: :model do
     end
 
     context '商品出品ができない時' do
-
       it '商品画像がないと登録ができないこと' do
         @item.image = nil
         @item.valid?
-        expect(@item.errors.full_messages).to include{"Image can't be blank"}
+        expect(@item.errors.full_messages).to include { "Image can't be blank" }
       end
 
       it 'item_nameが空では登録ができないこと' do
@@ -44,7 +42,6 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include("Category can't be blank")
       end
-
 
       it 'condition_idが空では登録ができないこと' do
         @item.condition_id = ''
@@ -99,37 +96,36 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include("Price can't be blank")
       end
-      
+
       it 'priceは¥300以上でないと登録ができないこと' do
         @item.price = 299
         @item.valid?
-        expect(@item.errors.full_messages).to include("Price must be greater than or equal to 300")
+        expect(@item.errors.full_messages).to include('Price must be greater than or equal to 300')
       end
 
       it 'priceは¥10000000以下でないと登録ができないこと' do
-        @item.price = 10000000
+        @item.price = 10_000_000
         @item.valid?
-        expect(@item.errors.full_messages).to include("Price must be less than or equal to 9999999")
+        expect(@item.errors.full_messages).to include('Price must be less than or equal to 9999999')
       end
 
       it 'priceは全角数字では登録ができないこと' do
         @item.price = '１０００'
         @item.valid?
-        expect(@item.errors.full_messages).to include("Price is not a number")
+        expect(@item.errors.full_messages).to include('Price is not a number')
       end
 
       it 'priceは半角英数混合では登録できないこと' do
         @item.price = '1000a'
         @item.valid?
-        expect(@item.errors.full_messages).to include("Price is not a number")
+        expect(@item.errors.full_messages).to include('Price is not a number')
       end
-      
+
       it 'priceは半角英語だけでは登録できないこと' do
         @item.price = 'aaaaa'
         @item.valid?
-        expect(@item.errors.full_messages).to include("Price is not a number")
+        expect(@item.errors.full_messages).to include('Price is not a number')
       end
-
     end
   end
 end
